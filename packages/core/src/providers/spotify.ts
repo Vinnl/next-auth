@@ -11,14 +11,36 @@
 import type { OAuthConfig, OAuthUserConfig } from "./index.js"
 
 export interface SpotifyImage {
-  url: string
+  url: string;
+  width: number | null;
+  height: number | null;
 }
 
 export interface SpotifyProfile extends Record<string, any> {
-  id: string
-  display_name: string
-  email: string
-  images: SpotifyImage[]
+  /** Requires user-read-private scope */
+  country?: string;
+  display_name: string | null;
+  /** Note: this email is no verified by Spotify. Requires user-read-email scope. */
+  email?: string;
+  /** Requires user-read-private scope */
+  explicit_content?: {
+    filter_enabled: boolean;
+    filter_locked: boolean;
+  };
+  external_urls: {
+    spotify: string;
+  };
+  followers: {
+    href: null;
+    total: number;
+  };
+  href: string;
+  id: SpotifyUserId;
+  images: SpotifyImage[];
+  /** Requires user-read-private scope */
+  product?: "premium" | "free" | "open";
+  type: "user";
+  uri: string;
 }
 
 /**
